@@ -1,11 +1,31 @@
-<%# Fallback override to always render images inline even without variant processors %>
-<% if attachment.attachable.is_a?(ActiveStorage::Blob) && attachment.attachable.image? %>
+<%# Robust fallback override that inlines images even when variants/previews aren't available %>
+<%# Try to resolve a blob from the attachment in multiple ways %>
+<%
+  blob = nil
+  if attachment.respond_to?(:attachable)
+    att = attachment.attachable
+    if att.is_a?(ActiveStorage::Blob)
+      blob = att
+    elsif att.respond_to?(:blob)
+      blob = att.blob
+    end
+  elsif attachment.respond_to?(:blob)
+    blob = attachment.blob
+  end
+%>
+
+<% if blob&.image? %>
   <figure class="trix-content">
-    <%= image_tag url_for(attachment.attachable), style: "max-width: 100%; height: auto; border-radius: 6px;" %>
-    <% if caption = attachment.caption.presence %>
+    <%= image_tag url_for(blob), style: "max-width: 100%; height: auto; border-radius: 6px;" %>
+    <% if caption = attachment.caption.presence rescue nil %>
       <figcaption><%= caption %></figcaption>
     <% end %>
   </figure>
 <% else %>
-  <%= render partial: "active_storage/blobs/blob", locals: { blob: attachment.attachable } %>
+  <%# Fall back to the default blob partial if present; otherwise a simple link %>
+  <% if defined?(render) && blob %>
+    <%= render partial: "active_storage/blobs/blob", locals: { blob: blob } %>
+  <% else %>
+    <%= link_to (blob&.filename || "file"), (blob ? url_for(blob) : "#") %>
+  <% end %>
 <% end %>

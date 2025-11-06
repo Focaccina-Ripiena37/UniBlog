@@ -1,0 +1,11 @@
+<%# Fallback override to always render images inline even without variant processors %>
+<% if attachment.attachable.is_a?(ActiveStorage::Blob) && attachment.attachable.image? %>
+  <figure class="trix-content">
+    <%= image_tag url_for(attachment.attachable), style: "max-width: 100%; height: auto; border-radius: 6px;" %>
+    <% if caption = attachment.caption.presence %>
+      <figcaption><%= caption %></figcaption>
+    <% end %>
+  </figure>
+<% else %>
+  <%= render partial: "active_storage/blobs/blob", locals: { blob: attachment.attachable } %>
+<% end %>

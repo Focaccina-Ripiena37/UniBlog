@@ -1,0 +1,15 @@
+<turbo-stream action="replace" target="reactions_<%= @post.id %>">
+  <template>
+    <div id="reactions_<%= @post.id %>">
+      <% grouped = @post.reactions.group_by(&:kind) %>
+      <% grouped.each do |kind, list| %>
+        <span><%= kind %> x <%= list.size %></span>
+      <% end %>
+      <div style="margin-top:0.25rem;">
+        <% ["😀","🔥","❤️","👍"].each do |emoji| %>
+          <%= button_to emoji, react_post_path(post_id: @post.id, kind: emoji), method: :post, form: { data: { turbo_stream: true }, style: "display:inline" } %>
+        <% end %>
+      </div>
+    </div>
+  </template>
+</turbo-stream>

@@ -1,0 +1,8 @@
+<turbo-stream action="replace" target="like_area_<%= @post.id %>">
+  <template>
+    <div id="like_area_<%= @post.id %>">
+      <%= button_to "👍 Like", like_post_path(@post), method: :post, form: { data: { turbo_stream: true } } %>
+      <span>Likes: <%= @post.reload.likes_count %></span>
+    </div>
+  </template>
+</turbo-stream>

@@ -1,0 +1,35 @@
+<div id="<%= dom_id post %>">
+  <article>
+
+    <div>
+      <strong><%= post.title %></strong>
+    </div>
+
+    <div>
+      <div class="post-body"><%= post.body %></div>
+    </div>
+
+    <div style="margin-top:0.5rem; font-size:0.85rem; color:#555;">
+      Visualizzazioni: <%= post.views_count %> · Likes: <%= post.likes_count %>
+    </div>
+
+    <div id="like_area_<%= post.id %>" style="margin-top:0.5rem;">
+      <%= button_to "👍 Like", like_post_path(post), method: :post, form: { data: { turbo_stream: true } } %>
+    </div>
+
+    <div id="reactions_<%= post.id %>" style="margin-top:0.5rem;">
+      <% grouped = post.reactions.group_by(&:kind) %>
+      <% grouped.each do |kind, list| %>
+        <span><%= kind %> x <%= list.size %></span>
+      <% end %>
+      <div style="margin-top:0.25rem;">
+        <% ["😀","🔥","❤️","👍"].each do |emoji| %>
+          <%= button_to emoji, react_post_path(post_id: post.id, kind: emoji), method: :post, form: { data: { turbo_stream: true }, style: "display:inline" } %>
+        <% end %>
+      </div>
+    </div>
+
+    <%= render "comments/comments", post: post %>
+
+  </article>
+</div>

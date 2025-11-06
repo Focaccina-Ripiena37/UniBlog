@@ -1,0 +1,27 @@
+<h2>Registrati</h2>
+<%= form_with(model: @user) do |f| %>
+  <% if @user.errors.any? %>
+    <div style="color:red;">
+      <ul>
+        <% @user.errors.full_messages.each do |m| %>
+          <li><%= m %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div>
+    <%= f.label :email_address %><br>
+    <%= f.email_field :email_address %>
+  </div>
+  <div>
+    <%= f.label :password %><br>
+    <%= f.password_field :password %>
+  </div>
+  <div>
+    <%= f.label :password_confirmation %><br>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div>
+    <%= f.submit "Crea account" %>
+  </div>
+<% end %>

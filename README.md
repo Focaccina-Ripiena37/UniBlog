@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📝 BLOG UNIFE
+# 📝 UNI BLOG
 
 *Simple blog application built with Ruby on Rails for a university project.*
 

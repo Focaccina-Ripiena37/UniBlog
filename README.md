@@ -1,5 +1,3 @@
-<div align="center">
-
 <h1>UniBlog</h1>
 <p><strong>Advanced Blog · Progetto di Sistemi Web (AA 2025/2026)</strong></p>
 
@@ -26,7 +24,6 @@
 	<img alt="Turbo" src="https://img.shields.io/badge/Hotwire-Turbo-0ea5e9">
 </p>
 
-</div>
 
 ---
 
@@ -41,16 +38,12 @@
 - **Autorizzazioni base**  
   → solo l’autore può modificare/cancellare il proprio post
 
----
-
 ## 📦 Requisiti
 
 - Ruby **3.2+**
 - Bundler
 - SQLite 3
 - Rails 8.x installato tramite `bundle install`
-
----
 
 ## 🚀 Avvio rapido (Windows PowerShell)
 
@@ -67,15 +60,12 @@ bin\rails server
 
 Apri l’app su: **[http://localhost:3000](http://localhost:3000)**
 
----
 
 ## 🧪 Test
 
 ```powershell
 bin\rails test
 ```
-
----
 
 ## 🛠️ Note di implementazione
 
@@ -100,12 +90,8 @@ bin\rails test
   * Controller: controllo `@post.user_id == Current.user&.id`
   * View: pulsanti `Edit` / `Destroy` visibili solo all’autore
 
----
-
 ## 🔗 Link utili
 
 * **Repository:** [https://github.com/Focaccina-Ripiena37/UniBlog](https://github.com/Focaccina-Ripiena37/UniBlog)
 * **Rails:** [https://rubyonrails.org](https://rubyonrails.org)
 * **Turbo:** [https://turbo.hotwired.dev](https://turbo.hotwired.dev)
-
-```

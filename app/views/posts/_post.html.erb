@@ -1,35 +1,41 @@
 <div id="<%= dom_id post %>">
   <article>
-
-    <div>
-      <strong><%= post.title %></strong>
+    <!-- Title -->
+    <div style="margin-bottom:0.5rem;">
+      <h2 style="margin:0;"> <%= post.title %> </h2>
     </div>
 
-    <div>
-      <div class="post-body"><%= post.body %></div>
+    <!-- Body -->
+    <div class="post-body" style="margin-bottom:0.75rem;">
+      <%= post.body %>
     </div>
 
-    <div style="margin-top:0.5rem; font-size:0.85rem; color:#555;">
-      Visualizzazioni: <%= post.views_count %> · Likes: <%= post.likes_count %>
+    <!-- Meta: views -->
+    <div style="margin-bottom:0.5rem; font-size:0.85rem; color:#555;">
+      Visualizzazioni: <%= post.views_count %>
     </div>
 
-    <div id="like_area_<%= post.id %>" style="margin-top:0.5rem;">
-      <%= button_to "👍 Like", like_post_path(post), method: :post, form: { data: { turbo_stream: true } } %>
+    <!-- Likes (count + button on same line) -->
+    <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.75rem;">
+      <%= render "likes/like", likeable: post %>
     </div>
 
-    <div id="reactions_<%= post.id %>" style="margin-top:0.5rem;">
+    <!-- Emoji Reactions -->
+    <div id="reactions_<%= post.id %>" style="margin-bottom:0.5rem;">
       <% grouped = post.reactions.group_by(&:kind) %>
-      <% grouped.each do |kind, list| %>
-        <span><%= kind %> x <%= list.size %></span>
-      <% end %>
-      <div style="margin-top:0.25rem;">
+      <div style="margin-bottom:0.25rem;">
+        <% grouped.each do |kind, list| %>
+          <span style="margin-right:0.5rem;"><%= kind %> x <%= list.size %></span>
+        <% end %>
+      </div>
+      <div>
         <% ["😀","🔥","❤️","👍"].each do |emoji| %>
-          <%= button_to emoji, react_post_path(post_id: post.id, kind: emoji), method: :post, form: { data: { turbo_stream: true }, style: "display:inline" } %>
+          <%= button_to emoji, react_post_path(post_id: post.id, kind: emoji), method: :post, form: { data: { turbo_stream: true }, style: "display:inline-block; margin-right:0.25rem;" } %>
         <% end %>
       </div>
     </div>
 
-    <%= render "comments/comments", post: post %>
+    <!-- Note: Comments are rendered on the show page below the post, to avoid duplication. -->
 
   </article>
 </div>

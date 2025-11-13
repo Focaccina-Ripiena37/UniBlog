@@ -1,0 +1,4 @@
+<%# Replace the post frame with the updated content %>
+<%= turbo_stream.replace dom_id(@post) do %>
+  <%= render @post %>
+<% end %>

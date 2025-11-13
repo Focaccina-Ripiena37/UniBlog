@@ -1,5 +1,15 @@
 <div id="<%= dom_id comment %>">
-  <p>
-    <%= comment.content %>
-  </p>
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem;">
+    <p style="margin:0;">
+      <%= comment.content %>
+    </p>
+    <div>
+      <%= render "likes/like", likeable: comment %>
+    </div>
+  </div>
+  <% if Current.user %>
+    <div style="margin-top:0.25rem;">
+      <%= button_to "Delete", post_comment_path(comment.post, comment), method: :delete, form: { data: { turbo_confirm: "Delete this comment?" } } %>
+    </div>
+  <% end %>
 </div>

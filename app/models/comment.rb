@@ -1,4 +1,6 @@
 class Comment < ApplicationRecord
+  include Likeable
+
   belongs_to :post
   broadcasts_to :post
   validates :content, presence: true, length: {minimum: 2}

@@ -1,4 +1,6 @@
 class Post < ApplicationRecord
+  include Likeable
+
   has_many :comments, dependent: :destroy
   has_many :reactions, dependent: :destroy
   belongs_to :user, optional: true

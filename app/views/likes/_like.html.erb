@@ -1,0 +1,27 @@
+<%= turbo_stream_from likeable %>
+
+<%= turbo_frame_tag dom_id(likeable, :likes) do %>
+  <% user_like = likeable.likes.find_by(user: current_user) if current_user %>
+
+  <div class="likes" style="display:flex; align-items:center; gap:0.5rem;">
+    <span id="<%= dom_id(likeable, :likes_count) %>">
+      <%= likeable.likes.count %> <%= "Like".pluralize(likeable.likes.count) %>
+    </span>
+
+    <% if current_user %>
+      <% if user_like %>
+        <%= button_to "Unlike",
+                      polymorphic_path([likeable, user_like]),
+                      method: :delete,
+                      class: "btn btn-secondary" %>
+      <% else %>
+        <%= button_to "Like",
+                      polymorphic_path([likeable, :likes]),
+                      method: :post,
+                      class: "btn btn-primary" %>
+      <% end %>
+    <% else %>
+      <span style="color:#666; font-size:0.9em;">Loggati per mettere like</span>
+    <% end %>
+  </div>
+<% end %>

@@ -1,3 +1,5 @@
+<div align="center">
+
 <h1>UniBlog</h1>
 <p><strong>Advanced Blog · Progetto di Sistemi Web (AA 2025/2026)</strong></p>
 
@@ -24,6 +26,7 @@
 	<img alt="Turbo" src="https://img.shields.io/badge/Hotwire-Turbo-0ea5e9">
 </p>
 
+</div>
 
 ---
 
